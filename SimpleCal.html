@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <style>
+        input, button {
+            margin: 5px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple Calculator</h1>
+
+    <!-- Input fields for operands -->
+    Operand 1: <input type="number" id="operand1"> <br>
+    Operand 2: <input type="number" id="operand2"> <br>
+    Result: <input type="text" id="result" readonly> <br>
+
+    <!-- Operation buttons -->
+    <button onclick="setOperation('add')">Add</button>
+    <button onclick="setOperation('sub')">Sub</button>
+    <button onclick="setOperation('mul')">Mul</button>
+    <button onclick="setOperation('div')">Div</button>
+    <button onclick="calculate()">Result</button>
+    <button onclick="resetCalculator()">Reset</button>
+
+    <script>
+        let operation = null;
+
+        // Function to set the operation based on button clicked
+        function setOperation(op) {
+            operation = op;
+        }
+
+        // Function to perform the calculation based on the selected operation
+        function calculate() {
+            const num1 = parseFloat(document.getElementById('operand1').value);
+            const num2 = parseFloat(document.getElementById('operand2').value);
+            let result;
+
+            if (isNaN(num1) || isNaN(num2)) {
+                alert('Please enter valid numbers in both operand fields.');
+                return;
+            }
+
+            switch (operation) {
+                case 'add':
+                    result = num1 + num2;
+                    break;
+                case 'sub':
+                    result = num1 - num2;
+                    break;
+                case 'mul':
+                    result = num1 * num2;
+                    break;
+                case 'div':
+                    if (num2 === 0) {
+                        alert('Cannot divide by zero.');
+                        return;
+                    }
+                    result = num1 / num2;
+                    break;
+                default:
+                    alert('Please select an operation before pressing Result.');
+                    return;
+            }
+
+            // Display the result in the result input field
+            document.getElementById('result').value = result;
+        }
+
+        // Function to reset the calculator
+        function resetCalculator() {
+            document.getElementById('operand1').value = '';
+            document.getElementById('operand2').value = '';
+            document.getElementById('result').value = '';
+            operation = null;
+        }
+    </script>
+</body>
+</html>
